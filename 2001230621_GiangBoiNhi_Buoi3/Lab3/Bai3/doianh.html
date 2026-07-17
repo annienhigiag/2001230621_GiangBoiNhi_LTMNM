@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Thay đổi ảnh khi hover</title>
+</head>
+<body>
+    <!-- Hiển thị ảnh đầu tiên -->
+    <!-- Khi đưa chuột vào thì đổi sang img2.jpg -->
+    <!-- Khi đưa chuột ra thì trở lại img1.jpg -->
+    <img id="img" src="img1.jpg" width="200"
+         onmouseover="this.src='img2.jpg'"
+         onmouseout="this.src='img1.jpg'">
+
+    <!-- Nút quay lại menu Bài 3 -->
+    <a href="index.html">Quay lại menu</a>
+</body>
+</html>

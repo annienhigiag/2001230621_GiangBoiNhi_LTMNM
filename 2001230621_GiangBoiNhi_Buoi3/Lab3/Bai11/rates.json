@@ -1,0 +1,5 @@
+[
+    { "code": "USD", "name": "Đô la Mỹ", "value": 25500 },
+    { "code": "EUR", "name": "Euro", "value": 28000 },
+    { "code": "JPY", "name": "Yên Nhật", "value": 175 }
+]

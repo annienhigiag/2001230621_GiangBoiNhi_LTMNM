@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tiêu đề trang -->
+    <title>Bài 10 - To-do list</title>
+</head>
+<body>
+    <!-- Tiêu đề bài -->
+    <h1>To-do list</h1>
+    <!-- Ô nhập công việc -->
+    <input type="text" id="task" placeholder="Nhập công việc">
+    <!-- Nút thêm công việc -->
+    <button onclick="addTask()">Thêm</button>
+    <!-- Danh sách công việc -->
+    <ul id="taskList"></ul>
+    <!-- Nút quay lại menu -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <script>
+        // Hàm tải danh sách công việc
+        function loadTasks() {
+            // Gửi yêu cầu đến todo.php
+            fetch('todo.php')
+            // Chuyển phản hồi thành JSON
+            .then(res => res.json())
+            // Xử lý dữ liệu nhận được
+            .then(data => {
+                // Lấy thẻ ul hiển thị danh sách
+                let taskList = document.getElementById("taskList");
+                // Xóa nội dung cũ
+                taskList.innerHTML = "";
+
+                // Duyệt qua từng công việc
+                data.forEach(task => {
+                    // Tạo thẻ li
+                    let li = document.createElement("li");
+                    // Tạo checkbox
+                    let checkbox = document.createElement("input");
+                    // Đặt loại input là checkbox
+                    checkbox.type = "checkbox";
+                    // Gán trạng thái hoàn thành
+                    checkbox.checked = task.completed;
+                    // Khi thay đổi checkbox thì gọi toggleTask
+                    checkbox.onchange = () => toggleTask(task.id);
+
+                    // Tạo thẻ span
+                    let span = document.createElement("span");
+                    // Gán nội dung công việc
+                    span.innerText = task.text;
+
+                    // Nếu đã hoàn thành thì gạch ngang
+                    if (task.completed) {
+                        // Gạch ngang nội dung
+                        span.style.textDecoration = "line-through";
+                    }
+
+                    // Tạo nút xóa
+                    let deleteButton = document.createElement("button");
+                    // Gán chữ Xóa
+                    deleteButton.innerText = "Xóa";
+                    // Khi bấm thì gọi deleteTask
+                    deleteButton.onclick = () => deleteTask(task.id);
+
+                    // Thêm checkbox vào li
+                    li.appendChild(checkbox);
+                    // Thêm span vào li
+                    li.appendChild(span);
+                    // Thêm nút xóa vào li
+                    li.appendChild(deleteButton);
+                    // Thêm li vào danh sách
+                    taskList.appendChild(li);
+                });
+            });
+        }
+
+        // Hàm thêm công việc
+        function addTask() {
+            // Lấy nội dung từ ô nhập
+            let text = document.getElementById("task").value;
+            // Tạo đối tượng FormData
+            let formData = new FormData();
+            // Thêm hành động add
+            formData.append('action', 'add');
+            // Thêm nội dung công việc
+            formData.append('text', text);
+
+            // Gửi dữ liệu đến todo.php
+            fetch('todo.php', {
+                // Dùng phương thức POST
+                method: 'POST',
+                // Gửi FormData
+                body: formData
+            })
+            // Sau khi gửi xong
+            .then(() => {
+                // Xóa ô nhập
+                document.getElementById("task").value = "";
+                // Tải lại danh sách
+                loadTasks();
+            });
+        }
+
+        // Hàm đổi trạng thái công việc
+        function toggleTask(id) {
+            // Tạo FormData
+            let formData = new FormData();
+            // Thêm hành động toggle
+            formData.append('action', 'toggle');
+            // Thêm id công việc
+            formData.append('id', id);
+
+            // Gửi dữ liệu đến todo.php
+            fetch('todo.php', {
+                // Dùng phương thức POST
+                method: 'POST',
+                // Gửi FormData
+                body: formData
+            })
+            // Tải lại danh sách
+            .then(() => loadTasks());
+        }
+
+        // Hàm xóa công việc
+        function deleteTask(id) {
+            // Tạo FormData
+            let formData = new FormData();
+            // Thêm hành động delete
+            formData.append('action', 'delete');
+            // Thêm id công việc
+            formData.append('id', id);
+
+            // Gửi dữ liệu đến todo.php
+            fetch('todo.php', {
+                // Dùng phương thức POST
+                method: 'POST',
+                // Gửi FormData
+                body: formData
+            })
+            // Tải lại danh sách
+            .then(() => loadTasks());
+        }
+
+        // Tải danh sách khi trang vừa mở
+        loadTasks();
+    </script>
+</body>
+</html>

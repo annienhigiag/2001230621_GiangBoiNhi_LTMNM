@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Bài 8 - Chat đơn giản</title>
+</head>
+
+<body>
+    <!-- Nhãn cho ô hiển thị lịch sử chat -->
+    <label for="chat">Lịch sử chat</label>
+
+    <!-- Ô textarea hiển thị lịch sử chat và không cho sửa -->
+    <textarea
+        id="chat"
+        rows="10"
+        cols="30"
+        readonly
+        title="Lịch sử chat"
+        placeholder="Lịch sử tin nhắn sẽ hiển thị tại đây"
+    ></textarea>
+
+    <!-- Xuống dòng -->
+    <br>
+
+    <!-- Nhãn cho ô nhập tin nhắn -->
+    <label for="msg">Tin nhắn</label>
+
+    <!-- Ô nhập tin nhắn -->
+    <input
+        type="text"
+        id="msg"
+        title="Nhập tin nhắn"
+        placeholder="Nhập tin nhắn"
+    >
+
+    <!-- Nút gọi hàm send -->
+    <button onclick="send()">Gửi</button>
+
+    <!-- Nút quay lại menu chính -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Hàm tải lịch sử chat
+        function loadChat() {
+            // Gửi yêu cầu đến chat.php
+            fetch("chat.php")
+
+                // Chuyển phản hồi thành JSON
+                .then(res => res.json())
+
+                // Xử lý dữ liệu nhận được
+                .then(data => {
+                    // Ghép các tin nhắn bằng ký tự xuống dòng
+                    document.getElementById("chat").value =
+                        data.join("\n");
+                });
+        }
+
+        // Hàm gửi tin nhắn
+        function send() {
+            // Tạo đối tượng FormData
+            let formData = new FormData();
+
+            // Thêm nội dung tin nhắn vào FormData
+            formData.append(
+                "msg",
+                document.getElementById("msg").value
+            );
+
+            // Gửi dữ liệu đến chat.php
+            fetch("chat.php", {
+                // Sử dụng phương thức POST
+                method: "POST",
+
+                // Gửi dữ liệu FormData
+                body: formData
+            })
+
+                // Sau khi gửi xong
+                .then(() => {
+                    // Xóa nội dung trong ô nhập
+                    document.getElementById("msg").value = "";
+
+                    // Tải lại lịch sử chat
+                    loadChat();
+                });
+        }
+
+        // Tải lại chat sau mỗi 2 giây
+        setInterval(loadChat, 2000);
+
+        // Tải chat ngay khi mở trang
+        loadChat();
+    </script>
+</body>
+</html>

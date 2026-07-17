@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Bài 5 - AJAX PHP</title>
+</head>
+<body>
+    <!-- Ô nhập tên -->
+    <input type="text" id="name">
+
+    <!-- Nút gọi hàm sayHello -->
+    <button onclick="sayHello()">Gửi</button>
+
+    <!-- Thẻ p hiển thị lời chào -->
+    <p id="msg"></p>
+
+    <!-- Nút quay lại menu chính -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm gửi tên đến PHP
+        function sayHello() {
+            // Tạo đối tượng FormData
+            let formData = new FormData();
+
+            // Thêm dữ liệu name vào FormData
+            formData.append('name', document.getElementById("name").value);
+
+            // Gửi yêu cầu đến hello.php
+            fetch('hello.php', {
+                // Sử dụng phương thức POST
+                method: 'POST',
+
+                // Gửi dữ liệu FormData
+                body: formData
+            })
+
+            // Chuyển phản hồi thành văn bản
+            .then(res => res.text())
+
+            // Hiển thị phản hồi vào thẻ msg
+            .then(data => document.getElementById("msg").innerText = data);
+        }
+    </script>
+</body>
+</html>

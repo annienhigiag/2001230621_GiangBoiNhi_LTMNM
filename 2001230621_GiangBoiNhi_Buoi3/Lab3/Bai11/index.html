@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tiêu đề trang -->
+    <title>Bài 11 - Tỷ giá ngoại tệ</title>
+</head>
+<body>
+    <!-- Tiêu đề bài -->
+    <h1>Tỷ giá ngoại tệ</h1>
+    <!-- Bảng hiển thị tỷ giá -->
+    <table border="1" id="rateTable"></table>
+    <!-- Nút quay lại menu -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <script>
+        // Hàm tải dữ liệu tỷ giá
+        function loadRates() {
+            // Gửi yêu cầu đến rates.php
+            fetch('rates.php')
+            // Chuyển phản hồi thành JSON
+            .then(res => res.json())
+            // Xử lý dữ liệu nhận được
+            .then(data => {
+                // Tạo hàng tiêu đề
+                let html = "<tr><th>Mã tiền</th><th>Tên ngoại tệ</th><th>Tỷ giá</th></tr>";
+
+                // Duyệt từng loại tiền
+                data.forEach(rate => {
+                    // Thêm một hàng dữ liệu
+                    html += `<tr><td>${rate.code}</td><td>${rate.name}</td><td>${rate.value}</td></tr>`;
+                });
+
+                // Hiển thị dữ liệu vào bảng
+                document.getElementById("rateTable").innerHTML = html;
+            });
+        }
+
+        // Cập nhật sau mỗi 10 phút
+        setInterval(loadRates, 600000);
+
+        // Tải ngay khi mở trang
+        loadRates();
+    </script>
+</body>
+</html>

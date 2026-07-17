@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Đồng hồ</title>
+</head>
+<body>
+    <!-- Thẻ h1 hiển thị đồng hồ -->
+    <h1 id="clock"></h1>
+
+    <!-- Nút quay lại menu Bài 3 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm cập nhật đồng hồ
+        function updateClock() {
+            // Tạo đối tượng ngày giờ hiện tại
+            let now = new Date();
+
+            // Hiển thị giờ hiện tại theo định dạng cục bộ
+            document.getElementById("clock").innerText = now.toLocaleTimeString();
+        }
+
+        // Gọi hàm updateClock sau mỗi 1000 mili giây
+        setInterval(updateClock, 1000);
+
+        // Gọi hàm ngay khi trang vừa tải
+        updateClock();
+    </script>
+</body>
+</html>

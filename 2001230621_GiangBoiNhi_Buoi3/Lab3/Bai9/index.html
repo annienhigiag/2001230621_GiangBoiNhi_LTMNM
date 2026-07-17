@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Bài 9 - Dự báo thời tiết</title>
+</head>
+<body>
+    <!-- Ô nhập tên thành phố -->
+    <input type="text" id="city" placeholder="Nhập tên thành phố">
+
+    <!-- Nút gọi hàm getWeather -->
+    <button onclick="getWeather()">Xem</button>
+
+    <!-- Thẻ div hiển thị thông tin thời tiết -->
+    <div id="weather"></div>
+
+    <!-- Nút quay lại menu chính -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm lấy thông tin thời tiết
+        function getWeather() {
+            // Lấy tên thành phố từ ô input
+            let c = document.getElementById("city").value;
+
+            // Gửi tên thành phố đến weather.php
+            fetch('weather.php?city=' + encodeURIComponent(c))
+
+            // Chuyển phản hồi thành JSON
+            .then(res => res.json())
+
+            // Xử lý dữ liệu thời tiết nhận được
+            .then(data => {
+                // Hiển thị tên thành phố, nhiệt độ và mô tả thời tiết
+                document.getElementById("weather").innerHTML =
+                    `<h3>${c}</h3><p>Nhiệt độ: ${data.temp}°C</p><p>${data.desc}</p>`;
+            });
+        }
+    </script>
+</body>
+</html>

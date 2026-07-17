@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Bài 6 - Đọc JSON</title>
+</head>
+<body>
+    <!-- Bảng hiển thị danh sách sản phẩm -->
+    <table border="1" id="tbl"></table>
+
+    <!-- Nút quay lại menu chính -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Gửi yêu cầu đọc file products.json
+        fetch('products.json')
+
+        // Chuyển phản hồi thành dữ liệu JSON
+        .then(res => res.json())
+
+        // Xử lý dữ liệu nhận được
+        .then(data => {
+            // Tạo hàng tiêu đề cho bảng
+            let html = "<tr><th>Tên</th><th>Giá</th></tr>";
+
+            // Duyệt qua từng sản phẩm
+            data.forEach(p => {
+                // Thêm một hàng chứa tên và giá sản phẩm
+                html += `<tr><td>${p.name}</td><td>${p.price}</td></tr>`;
+            });
+
+            // Hiển thị nội dung HTML vào bảng
+            document.getElementById("tbl").innerHTML = html;
+        });
+    </script>
+</body>
+</html>

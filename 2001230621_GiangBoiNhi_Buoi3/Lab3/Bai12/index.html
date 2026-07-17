@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 để hiển thị tiếng Việt có dấu -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp giao diện hiển thị đúng kích thước trên điện thoại và máy tính bảng -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề hiển thị trên tab trình duyệt -->
+    <title>Đăng ký tài khoản</title>
+
+    <!-- Bắt đầu phần CSS dùng để định dạng giao diện -->
+    <style>
+        /* Định dạng toàn bộ phần thân trang */
+        body {
+            /* Sử dụng font Arial */
+            font-family: Arial, sans-serif;
+
+            /* Giới hạn chiều rộng tối đa của nội dung là 400px */
+            max-width: 400px;
+
+            /* Cách phía trên 30px và tự động căn giữa theo chiều ngang */
+            margin: 30px auto;
+        }
+
+        /* Định dạng tiêu đề h2 */
+        h2 {
+            /* Căn giữa nội dung tiêu đề */
+            text-align: center;
+        }
+
+        /* Định dạng form đăng ký */
+        form {
+            /* Sử dụng Flexbox */
+            display: flex;
+
+            /* Sắp xếp các phần tử theo chiều dọc */
+            flex-direction: column;
+        }
+
+        /* Định dạng tất cả các ô input */
+        input {
+            /* Tạo khoảng cách phía trên và dưới 8px */
+            margin: 8px 0;
+
+            /* Tạo khoảng cách bên trong ô nhập */
+            padding: 8px;
+        }
+
+        /* Định dạng nút đăng ký */
+        button {
+            /* Tạo khoảng cách bên trong nút */
+            padding: 10px;
+
+            /* Đặt màu nền xanh lá */
+            background: #28a745;
+
+            /* Đặt màu chữ trắng */
+            color: white;
+
+            /* Xóa đường viền mặc định */
+            border: none;
+
+            /* Khi rê chuột vào nút sẽ hiện hình bàn tay */
+            cursor: pointer;
+        }
+
+        /* Định dạng nút khi người dùng đưa chuột vào */
+        button:hover {
+            /* Đổi màu nền sang xanh đậm hơn */
+            background: #218838;
+        }
+
+        /* Định dạng thẻ có id là msg */
+        #msg {
+            /* Tạo khoảng cách phía trên 15px */
+            margin-top: 15px;
+
+            /* In đậm nội dung thông báo */
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Tiêu đề giao diện đăng ký -->
+    <h2>📝 Đăng ký tài khoản</h2>
+
+    <!-- Form đăng ký có id là regForm -->
+    <form id="regForm">
+
+        <!-- Ô nhập tên đăng nhập -->
+        <!-- type="text" cho phép nhập văn bản -->
+        <!-- id="username" dùng để JavaScript lấy dữ liệu -->
+        <!-- required bắt buộc người dùng phải nhập -->
+        <input
+            type="text"
+            id="username"
+            placeholder="Tên đăng nhập"
+            required
+        >
+
+        <!-- Ô nhập email -->
+        <!-- type="email" giúp trình duyệt kiểm tra định dạng email cơ bản -->
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+        >
+
+        <!-- Ô nhập mật khẩu -->
+        <!-- type="password" giúp che ký tự khi nhập -->
+        <input
+            type="password"
+            id="password"
+            placeholder="Mật khẩu"
+            required
+        >
+
+        <!-- Ô nhập lại mật khẩu để xác nhận -->
+        <input
+            type="password"
+            id="confirm"
+            placeholder="Nhập lại mật khẩu"
+            required
+        >
+
+        <!-- Nút gửi form -->
+        <!-- type="submit" làm phát sinh sự kiện submit -->
+        <button type="submit">
+            Đăng ký
+        </button>
+    </form>
+
+    <!-- Thẻ p dùng để hiển thị thông báo lỗi hoặc thành công -->
+    <p id="msg"></p>
+
+    <!-- Bắt đầu phần JavaScript -->
+    <script>
+        // Tìm form có id regForm
+        // Gắn hàm xử lý vào sự kiện submit của form
+        document.getElementById("regForm").onsubmit = function(e) {
+
+            // Ngăn form gửi theo cách mặc định
+            // Nếu không có dòng này, trang sẽ tải lại
+            e.preventDefault();
+
+            // Lấy giá trị trong ô username
+            // trim() dùng để xóa khoảng trắng ở đầu và cuối
+            let user = document
+                .getElementById("username")
+                .value
+                .trim();
+
+            // Lấy giá trị email và xóa khoảng trắng thừa
+            let email = document
+                .getElementById("email")
+                .value
+                .trim();
+
+            // Lấy giá trị mật khẩu
+            let pass = document
+                .getElementById("password")
+                .value;
+
+            // Lấy giá trị mật khẩu nhập lại
+            let confirm = document
+                .getElementById("confirm")
+                .value;
+
+            // Kiểm tra độ dài mật khẩu
+            // Nếu mật khẩu có ít hơn 6 ký tự
+            if (pass.length < 6) {
+
+                // Hiển thị thông báo lỗi vào thẻ có id msg
+                document.getElementById("msg").innerText =
+                    "Mật khẩu phải >= 6 ký tự";
+
+                // Dừng hàm, không gửi dữ liệu sang PHP
+                return;
+            }
+
+            // Kiểm tra mật khẩu và mật khẩu nhập lại
+            if (pass !== confirm) {
+
+                // Hiển thị thông báo lỗi
+                document.getElementById("msg").innerText =
+                    "Mật khẩu nhập lại không khớp";
+
+                // Dừng hàm
+                return;
+            }
+
+            // Tạo đối tượng FormData
+            // FormData dùng để đóng gói dữ liệu gửi sang PHP
+            let formData = new FormData();
+
+            // Thêm trường username vào FormData
+            // Giá trị được lấy từ biến user
+            formData.append("username", user);
+
+            // Thêm trường email vào FormData
+            formData.append("email", email);
+
+            // Thêm trường password vào FormData
+            formData.append("password", pass);
+
+            // Gửi yêu cầu đến file register.php
+            fetch("register.php", {
+
+                // Sử dụng phương thức POST
+                method: "POST",
+
+                // Gửi dữ liệu FormData trong phần body
+                body: formData
+            })
+
+            // Nhận phản hồi từ PHP
+            // Chuyển phản hồi thành văn bản
+            .then(res => res.text())
+
+            // Xử lý dữ liệu văn bản PHP trả về
+            .then(data => {
+
+                // Hiển thị nội dung phản hồi vào thẻ msg
+                document.getElementById("msg").innerText = data;
+            })
+
+            // Nếu xảy ra lỗi kết nối
+            .catch(err => {
+
+                // Hiển thị thông báo lỗi
+                document.getElementById("msg").innerText =
+                    "Lỗi kết nối server";
+            });
+        };
+    </script>
+</body>
+</html>

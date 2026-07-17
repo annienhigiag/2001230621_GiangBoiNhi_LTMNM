@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Bài 7 - Tìm kiếm sản phẩm</title>
+</head>
+<body>
+    <!-- Ô nhập từ khóa tìm kiếm -->
+    <input type="text" id="kw" placeholder="Nhập từ khóa">
+
+    <!-- Nút gọi hàm search -->
+    <button onclick="search()">Tìm kiếm</button>
+
+    <!-- Danh sách hiển thị kết quả -->
+    <ul id="result"></ul>
+
+    <!-- Nút quay lại menu chính -->
+    <a href="../index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm tìm kiếm sản phẩm
+        function search() {
+            // Lấy từ khóa từ ô input
+            let q = document.getElementById("kw").value;
+
+            // Gửi từ khóa đến search.php
+            fetch('search.php?q=' + encodeURIComponent(q))
+
+            // Chuyển phản hồi thành JSON
+            .then(res => res.json())
+
+            // Xử lý danh sách sản phẩm nhận được
+            .then(data => {
+                // Tạo các thẻ li và hiển thị vào danh sách result
+                document.getElementById("result").innerHTML = data.map(p =>
+                    `<li>${p.name} - ${p.price}</li>`
+                ).join('');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Đổi màu nền</title>
+</head>
+<body>
+    <!-- Nút gọi hàm changeBg khi được bấm -->
+    <button onclick="changeBg()">Đổi màu nền</button>
+
+    <!-- Nút quay lại menu Bài 2 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm đổi màu nền
+        function changeBg() {
+            // Tạo màu ngẫu nhiên và gán vào backgroundColor của trang
+            document.body.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        }
+    </script>
+</body>
+</html>

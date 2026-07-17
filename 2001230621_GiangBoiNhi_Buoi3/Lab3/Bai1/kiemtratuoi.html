@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Kiểm tra tuổi</title>
+</head>
+<body>
+    <!-- Ô nhập tuổi -->
+    <input type="number" id="age" placeholder="Nhập tuổi">
+
+    <!-- Nút gọi hàm checkAge khi được bấm -->
+    <button onclick="checkAge()">Kiểm tra</button>
+
+    <!-- Thẻ p dùng để hiển thị kết quả -->
+    <p id="result"></p>
+
+    <!-- Nút quay lại menu Bài 1 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm kiểm tra tuổi
+        function checkAge() {
+            // Lấy giá trị từ ô input có id age
+            let age = document.getElementById("age").value;
+
+            // Kiểm tra tuổi có lớn hơn hoặc bằng 18 hay không
+            if (age >= 18) {
+                // Hiển thị thông báo đã đủ tuổi
+                document.getElementById("result").innerText = "Bạn đã đủ tuổi";
+            } else {
+                // Hiển thị thông báo chưa đủ tuổi
+                document.getElementById("result").innerText = "Bạn chưa đủ tuổi";
+            }
+        }
+    </script>
+</body>
+</html>

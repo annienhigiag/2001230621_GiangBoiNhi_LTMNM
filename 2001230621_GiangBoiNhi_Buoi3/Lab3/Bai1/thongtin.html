@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Biến và hiển thị HTML</title>
+</head>
+<body>
+    <!-- Thẻ div dùng để hiển thị thông tin tên và tuổi -->
+    <div id="info"></div>
+
+    <!-- Nút quay lại menu Bài 1 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo biến name và gán giá trị An
+        let name = "An";
+
+        // Khai báo biến age và gán giá trị 20
+        let age = 20;
+
+        // In tên và tuổi ra cửa sổ Console
+        console.log(name, age);
+
+        // Hiển thị tên và tuổi vào thẻ có id info
+        document.getElementById("info").innerHTML = `Tên: ${name}, Tuổi: ${age}`;
+    </script>
+</body>
+</html>

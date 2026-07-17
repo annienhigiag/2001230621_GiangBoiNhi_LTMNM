@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Thêm phần tử vào danh sách</title>
+</head>
+<body>
+    <!-- Ô nhập nội dung cần thêm -->
+    <input type="text" id="item">
+
+    <!-- Nút gọi hàm addItem -->
+    <button onclick="addItem()">Thêm</button>
+
+    <!-- Danh sách rỗng -->
+    <ul id="list"></ul>
+
+    <!-- Nút quay lại menu Bài 2 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm thêm phần tử vào danh sách
+        function addItem() {
+            // Lấy giá trị từ ô input có id item
+            let val = document.getElementById("item").value;
+
+            // Kiểm tra nội dung sau khi xóa khoảng trắng có khác rỗng hay không
+            if (val.trim() !== "") {
+                // Tạo một thẻ li mới
+                let li = document.createElement("li");
+
+                // Gán nội dung nhập vào cho thẻ li
+                li.innerText = val;
+
+                // Thêm thẻ li vào cuối danh sách ul
+                document.getElementById("list").appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>

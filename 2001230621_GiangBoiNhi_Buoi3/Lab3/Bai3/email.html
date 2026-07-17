@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Khai báo bảng mã UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Giúp trang hiển thị tốt trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề trang -->
+    <title>Kiểm tra email</title>
+</head>
+<body>
+    <!-- Form gọi hàm validateEmail khi submit -->
+    <form onsubmit="return validateEmail()">
+        <!-- Ô nhập email -->
+        <input type="text" id="email" placeholder="Nhập email">
+
+        <!-- Nút gửi form -->
+        <button type="submit">Kiểm tra</button>
+    </form>
+
+    <!-- Thẻ p hiển thị thông báo -->
+    <p id="msg"></p>
+
+    <!-- Nút quay lại menu Bài 3 -->
+    <a href="index.html">Quay lại menu</a>
+
+    <!-- Bắt đầu đoạn mã JavaScript -->
+    <script>
+        // Khai báo hàm kiểm tra email
+        function validateEmail() {
+            // Lấy giá trị email từ ô input
+            let email = document.getElementById("email").value;
+
+            // Khai báo biểu thức chính quy kiểm tra email
+            let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Kiểm tra email có khớp biểu thức chính quy hay không
+            if (regex.test(email)) {
+                // Hiển thị thông báo email hợp lệ
+                document.getElementById("msg").innerText = "Email hợp lệ";
+            } else {
+                // Hiển thị thông báo email không hợp lệ
+                document.getElementById("msg").innerText = "Email không hợp lệ";
+            }
+
+            // Trả về false để form không tải lại trang
+            return false;
+        }
+    </script>
+</body>
+</html>
